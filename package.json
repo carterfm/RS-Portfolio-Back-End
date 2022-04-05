@@ -1,0 +1,24 @@
+{
+  "name": "rs-portfolio-back-end",
+  "version": "1.0.0",
+  "description": "A repository for the back end--built with MongoDB and Express--of a portfolio site I'm building for an artist friend of mine.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carterfm/RS-Portfolio-Back-End.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carterfm/RS-Portfolio-Back-End/issues"
+  },
+  "homepage": "https://github.com/carterfm/RS-Portfolio-Back-End#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "mongoose": "^6.2.10"
+  }
+}
