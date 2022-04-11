@@ -40,7 +40,6 @@ const artworkSchema = new Schema(
     },
     {
         // Just in case we want to use virtuals and getters
-        // TODO: turn off virtuals if we end up not using it
         toJSON: {
             virtuals: true,
             getters: true

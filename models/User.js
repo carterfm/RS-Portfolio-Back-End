@@ -1,4 +1,5 @@
 const { Schema, Types, model } = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const userSchema = new Schema(
     {
@@ -55,6 +56,15 @@ const userSchema = new Schema(
         timestamps: false
     }
 );
+
+// Hook for creation of a document--hashes our password when we create it or update it
+userSchema.pre('save', async function(next) {
+    if (this.isNew || this.isModified('password')) {
+        this.password = await bcrypt.hash(this.password, 10);
+    }
+    
+    next();
+});
 
 userSchema.virtual('updateCount').get(function(){
     return this.updates.length;
