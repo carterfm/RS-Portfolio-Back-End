@@ -1,6 +1,10 @@
 const router = require('express').Router();
+const userRoutes = require('./userRoutes.js');
+const artworkRoutes = require('./artworkRoutes.js');
+const updateRoutes = require('./updateRoutes.js');
 
-// Links to other router files go here
-// We'll make get routes for users, updates, and artwork, but in the final product, all the get routes will be associated with the user
+router.use('/users', userRoutes);
+router.use('/artwork', artworkRoutes);
+router.use('/updates', updateRoutes);
 
 module.exports = router;

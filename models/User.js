@@ -30,7 +30,8 @@ const userSchema = new Schema(
             maxLength: 32
         },
         bio: {
-            type: String
+            type: String,
+            default: ""
         },
         updates: [
             {
@@ -57,12 +58,21 @@ const userSchema = new Schema(
     }
 );
 
-// Hook for creation of a document--hashes our password when we create it or update it
-userSchema.pre('save', async function(next) {
+// Hook for creation of a document--hashes our password when we create it
+userSchema.pre('save', function(next) {
     if (this.isNew || this.isModified('password')) {
-        this.password = await bcrypt.hash(this.password, 10);
+        this.password = bcrypt.hashSync(this.password, 10);
     }
     
+    next();
+});
+
+userSchema.pre('findOneAndUpdate', function(next) {
+    console.log(this._update);
+    if (this._update.password) {
+        console.log("password change detected");
+        this._update.password = bcrypt.hashSync(this._update.password, 10);
+    }
     next();
 });
 
@@ -77,14 +87,16 @@ userSchema.virtual('artworkCount').get(function(){
 const User = model('User', userSchema);
 
 // TODO: erase or update once done with preliminary testing
+// User.deleteMany({}, err => (err ? console.log(err) : console.log('User collection cleared--ready for seeding')));
 User.find()
 .then(data => {
     if (data.length === 0) {
-        console.log("Seeding...");
-        User.create({username: "carterfm", email: "carterf.morfitt@gmail.com", password: "testpassword", bio: "I'm honestly just trying my best to hang on, here."},
-        err => (err ? console.log(err) : console.log('Created new document')));
+        console.log("Seeding user collection...");
+        User.create({username: "RSpinazzola", email: "rhysspinazzola@gmail.com", password: "R0s3_buDdy"})
+            .then(console.log("Created new document!"))
+            .catch(err => console.log(err));
     } else {
-        console.log("Already seeded");
+        console.log("User already seeded");
     }
 });
 
