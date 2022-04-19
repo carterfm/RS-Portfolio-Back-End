@@ -12,6 +12,11 @@ const updateSchema = new Schema(
         body: {
             type: String, 
             required: true
+        },
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+            required: true
         }
     },
     {
@@ -33,5 +38,7 @@ updateSchema.virtual('updatedAtReadable').get(function(){
 });
 
 const Update = model('Update', updateSchema);
+
+// Update.deleteMany({}, err => (err ? console.log(err) : console.log('Update collection cleared--ready for seeding')));
 
 module.exports = Update;

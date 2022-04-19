@@ -1,24 +1,6 @@
 const moment = require('moment');
 const { Schema, Types, model} = require('mongoose');
 
-// Being a bit anal here, but in the interests of potentially expanding tag functionality in the future
-// TODO: consider how to approach this
-const tagSchema = new Schema(
-    {
-        // For now, we're just gonna allow these three options--might change this up later
-        tagName: {
-            type: String,
-            required: true,
-            // For no
-            enum: ["2D", "3D", "other"]
-        }
-    },
-    {
-        // No ids necessary for these, since they're strictly subdocs
-        id: false
-    }
-);
-
 const artworkSchema = new Schema(
     {
         title: {
@@ -36,7 +18,19 @@ const artworkSchema = new Schema(
             type: String,
             required: true
         },
-        typeTags: [tagSchema],
+        typeTag: {
+            type: String,
+            required: true,
+            // For no
+            enum: ["2D", "3D", "Other"]
+        },
+        // username of person who posted this artwork
+        // TODO: change this to a foreign key
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+            required: true
+        }
     },
     {
         // Just in case we want to use virtuals and getters
@@ -59,5 +53,7 @@ artworkSchema.virtual('updatedAtReadable').get(function(){
 
 // Initializing Artwork model using the schema we just wrote up
 const Artwork = model('Artwork', artworkSchema);
+
+// Artwork.deleteMany({}, err => (err ? console.log(err) : console.log('Artwork collection cleared')));
 
 module.exports = Artwork;
