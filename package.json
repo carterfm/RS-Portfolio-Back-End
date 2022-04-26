@@ -19,6 +19,7 @@
   "homepage": "https://github.com/carterfm/RS-Portfolio-Back-End#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
     "express": "^4.17.3",
     "moment": "^2.29.2",
     "mongoose": "^6.2.10"
