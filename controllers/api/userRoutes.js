@@ -34,7 +34,7 @@ router.get('/:userId', (req, res) => {
 // TODO: write a login post route
 
 // Put route for editing login-connected information
-// May be somewhat redundant, but I want there to be more security a
+// May be somewhat redundant, but I want there to be security here
 router.put('/:userId', (req, res) => {
     User.findByIdAndUpdate( req.params.userId, {username: req.body.username, email: req.body.email, password: req.body.password}, {validators: true, new: true})
         .then(updatedUser => {
@@ -45,9 +45,9 @@ router.put('/:userId', (req, res) => {
         .catch(err => res.status(500).json(err));
 });
 
-// Route for editing bio
+// Route for editing bio and portrait
 router.put('/bio/:userId', (req, res) => {
-    User.findByIdAndUpdate( req.params.userId, {bio: req.body.bio}, {new: true})
+    User.findByIdAndUpdate( req.params.userId, {bio: req.body.bio, portrait: req.body.portrait}, {new: true})
         .then(updatedUser => {
             !updatedUser
             ? res.status(404).json( { message: 'Cannot edit bio -- no user with that ID'})

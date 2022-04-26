@@ -33,6 +33,10 @@ const userSchema = new Schema(
             type: String,
             default: ""
         },
+        portrait: {
+            type: String,
+            default: ""
+        },
         updates: [
             {
                 type: Schema.Types.ObjectId,
@@ -92,7 +96,7 @@ User.find()
 .then(data => {
     if (data.length === 0) {
         console.log("Seeding user collection...");
-        User.create({username: "RSpinazzola", email: "rhysspinazzola@gmail.com", password: "R0s3_buDdy"})
+        User.create({username: "RSpinazzola", email: "rhysspinazzola@gmail.com", password: "R0s3_buDdy", portrait: ""})
             .then(console.log("Created new document!"))
             .catch(err => console.log(err));
     } else {
